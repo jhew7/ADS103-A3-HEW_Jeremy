@@ -12,8 +12,12 @@
 *
 ******************************************************************************/
 
+
+
 #include <iostream>
 #include <string>
+#include <fstream> // File Reading/Writing
+#include <vector> // Storage
 #include "NumbersNode.h"
 #include "BST.h"		// TREE
 #include "AVL.h"		// Tree Balancing
@@ -25,40 +29,48 @@ void main()
 	cout << "==================================" << endl << endl;
 	cout << "AVL Tree: In progress..." << endl;
 	cout << "==================================" << endl << endl;
-
+	
+	// Reading in numbers to work with
+	ifstream readFile;
+	readFile.open("input-a3q1.txt");
+	int numberOfTreeNumbers;
+	int numbersToSort;
+	readFile >> numberOfTreeNumbers;
+	
+	// Setting up storage
 	AVL avl1;
+
+	for (int i = 0; i < numberOfTreeNumbers; i++)
+	{
+		int temp;
+		readFile >> temp;
+		avl1.insert(new NumbersNode(temp));
+	}
+	readFile.close();
+
 	avl1.displayRotations = true;
-
-	avl1.insert(new NumbersNode(23));
-	avl1.insert(new NumbersNode(12));
-	avl1.insert(new NumbersNode(5));
-	avl1.insert(new NumbersNode(8));
-	avl1.insert(new NumbersNode(10));
-	avl1.insert(new NumbersNode(21));
-	avl1.insert(new NumbersNode(11));
-	avl1.insert(new NumbersNode(17));
 	cout << endl << "Tree height this far: " << avl1.height(avl1.root) << endl;
+	
+	// Write the results of avl1.show to txt file
+	ofstream  writeFile;
+	writeFile.open("output-a3q1.txt");
 
+	// If the file is open, then write what follows
+	/*if (writeFile.is_open())
+	{
+		writeFile;
+	}*/
+	
 	cout << "==================================" << endl << endl;
 	cout << "Breadth First Traversal" << endl;
 	// TREE SHOW BREADTH LEVEL
 	avl1.show(avl1.root);
 	cout << endl << endl << "The ROOT of this AVL is: " << avl1.root->inputNumber << endl;
 	cout << "==================================" << endl << endl;
+	
+	
 
-	/*cout << "Numbers AVL in order traversal" << endl;
-	avl1.inOrderTraversal(avl1.root);
-
-	cout << "==================================" << endl << endl;*/
-
-	/*cout << "try find student matching ID: 4343..." << endl;
-	NumbersNode* sPtr2 = avl1.search(4343, true);
-	if (sPtr2 != NULL)
-	{
-		cout << "Found: " << sPtr2->inputNumber << endl;
-	}
-	else
-		cout << "Cannot find ID 4343 in avl1 tree!" << endl;*/
+	writeFile.close();
 
 	system("pause");
 }

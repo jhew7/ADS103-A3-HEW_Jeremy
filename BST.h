@@ -40,5 +40,6 @@ public:
 
 	// SHOW
 	void show(NumbersNode* p);			// add show function prototype to the BST Class
+	int resultsForFile();
 };
 
